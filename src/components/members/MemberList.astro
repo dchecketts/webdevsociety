@@ -7,6 +7,49 @@ import type { OrgEvent, MemberUser } from '../../../types';
 const GITHUB_APP_ID = 3702060;
 const GITHUB_APP_INSTALLATION_ID = 132060529;
 const GITHUB_ORG = 'Web-Design-Development-Society';
+const MONTH_MS = 30 * 24 * 60 * 60 * 1000;
+
+function memberLabel(user: MemberUser): string {
+  return (user.name || user.login).toLowerCase();
+}
+
+function getLastEventAt(
+  login: string,
+  orgEvents: OrgEvent[],
+): string | undefined {
+  let latest: string | undefined;
+  let latestTime = 0;
+
+  for (const event of orgEvents) {
+    if (event.actor.login !== login || !event.created_at) continue;
+    const time = new Date(event.created_at).getTime();
+    if (!Number.isNaN(time) && time > latestTime) {
+      latestTime = time;
+      latest = event.created_at;
+    }
+  }
+
+  return latest;
+}
+
+function withLastEventAt(user: MemberUser, orgEvents: OrgEvent[]): MemberUser {
+  return {
+    ...user,
+    last_event_at: getLastEventAt(user.login, orgEvents) ?? null,
+  };
+}
+
+function isActiveInLastMonth(user: MemberUser): boolean {
+  if (!user.last_event_at) return false;
+  const lastActivity = new Date(user.last_event_at).getTime();
+  return !Number.isNaN(lastActivity) && Date.now() - lastActivity <= MONTH_MS;
+}
+
+function sortMembers(users: MemberUser[]): MemberUser[] {
+  return [...users].sort((a, b) =>
+    memberLabel(a).localeCompare(memberLabel(b)),
+  );
+}
 
 const app = new App({
   appId: GITHUB_APP_ID,
@@ -87,17 +130,13 @@ if (!fs.existsSync('./users.json')) {
         }
         return acc;
       }, 0),
-      last_merged_pr_at: events.find(
-        (event) =>
-          event.type === 'PullRequestEvent' &&
-          event.actor.login === member.login &&
-          event.repo.name.startsWith('Web-Design-Development-Society/'),
-      )?.created_at,
+      last_event_at: getLastEventAt(member.login, events) ?? null,
     });
   }
+  users = sortMembers(users);
   fs.writeFile(
     './users.json',
-    JSON.stringify({ data: users.sort((a, b) => b.events - a.events) }),
+    JSON.stringify({ data: users }),
     'utf8',
     (err) => {
       if (err) {
@@ -106,17 +145,44 @@ if (!fs.existsSync('./users.json')) {
     },
   );
 } else {
-  users = JSON.parse(fs.readFileSync('./users.json', 'utf8')).data;
+  users = sortMembers(
+    JSON.parse(fs.readFileSync('./users.json', 'utf8')).data.map(
+      (user: MemberUser) => withLastEventAt(user, events),
+    ),
+  );
 }
 
 // const rateLimit = await app.octokit.request('GET /rate_limit');
 // console.log(rateLimit.data.rate);
 ---
 
-<div class="mx-4">
+<div class="mx-4 member-directory">
   <h1 class="text-2xl font-bold">Members</h1>
   <p class="text-lg">Total members: {users.length}</p>
-  <ul class="grid tablet:grid-cols-2 gap-2">
-    {users.map((user) => <MemberCard member={user} />)}
+  <label class="active-only-filter">
+    <input type="checkbox" id="active-only-filter" />
+    Show active only
+  </label>
+  <ul class="grid tablet:grid-cols-2 gap-2" id="member-list">
+    {
+      users.map((user) => (
+        <MemberCard member={user} active={isActiveInLastMonth(user)} />
+      ))
+    }
   </ul>
 </div>
+
+<style>
+  .active-only-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.75rem 0 1rem;
+    cursor: pointer;
+  }
+
+  .member-directory:has(#active-only-filter:checked)
+    :global([data-member-active='false']) {
+    display: none !important;
+  }
+</style>

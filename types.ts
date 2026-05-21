@@ -15,7 +15,7 @@ export type GitHubPublicUser =
 /** What MemberCard actually needs (plus what you store in users.json) */
 export type MemberUser = GitHubPublicUser & {
   events: number;
-  last_merged_pr_at?: string | null;
+  last_event_at?: string | null;
 };
 
 /** Shape of your cache files */

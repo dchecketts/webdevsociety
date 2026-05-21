@@ -1,10 +1,10 @@
 ---
 import Github from './Github.astro';
 
-const { member } = Astro.props;
+const { member, active = false } = Astro.props;
 ---
 
-<li class="member-card w-full">
+<li class="member-card w-full" data-member-active={active ? 'true' : 'false'}>
   <img src={member.avatar_url} alt={member.login} class="avatar" />
   <div class="w-full min-w-0 text-left ml-1">
     <div class="font-bold text-lg">
@@ -16,20 +16,11 @@ const { member } = Astro.props;
         {member.login}
       </a>
     </div>
+
     {
-      member.events > 0 && (
-        <div class="text-sm text-disabled">
-          {`${member.events} Contributions` || '-'}
-        </div>
-      )
-    }
-    {
-      member.last_merged_pr_at && (
+      member.last_event_at && (
         <div>
-          Last Activity:{' '}
-          {member.last_merged_pr_at
-            ? new Date(member.last_merged_pr_at).toLocaleDateString()
-            : '-'}
+          Last Activity: {new Date(member.last_event_at).toLocaleDateString()}
         </div>
       )
     }
