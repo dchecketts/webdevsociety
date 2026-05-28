@@ -11,7 +11,7 @@ const { member, active = false } = Astro.props;
   data-member-name={(member.name || '').toLowerCase()}
 >
   <img src={member.avatar_url} alt={member.login} class="w-full" />
-  <div class="w-full min-w-0 text-left ml-sm">
+  <div class="min-w-0 text-left ml-sm">
     <div class="font-bold text-lg">
       {member.name || <span class="text-disabled">(Not Provided)</span>}
     </div>
