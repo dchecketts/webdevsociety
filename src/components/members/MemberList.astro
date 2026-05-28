@@ -198,6 +198,12 @@ if (!fs.existsSync('./users.json')) {
     display: none !important;
   }
 
+  @media screen and (min-width: 480px) {
+    #member-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media screen and (min-width: 720px) {
     #member-list {
       grid-template-columns: repeat(4, 1fr);
