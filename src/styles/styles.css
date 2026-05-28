@@ -91,6 +91,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-family-primary);
+  margin: 0;
 }
 
 #hero-img {
@@ -135,16 +136,6 @@ h6 {
   justify-content: center;
 }
 
-.presidency {
-  background-color: var(--accent-color);
-  height: 300px;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-}
-
 #member-card,
 #gallery-card,
 #project-card {
@@ -178,33 +169,26 @@ h6 {
   transform: none;
 }
 
-.member-card {
-  display: flex;
-  align-items: left;
-  justify-content: left;
-  border: 1px solid var(--primary-color);
-  border-radius: 10px;
-  padding: 10px;
-}
-
-.member-card:hover {
-  box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.2);
-}
-
 .grid {
   display: grid;
-}
-
-.avatar {
-  height: 80px;
-  width: 80px;
-  border-radius: 1rem;
 }
 
 .truncate {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.pb-2 {
+  padding-bottom: 8px;
 }
 
 .h-1 {
@@ -267,6 +251,10 @@ h6 {
   margin-top: calc(var(--spacing) * 4);
 }
 
+.mt-8 {
+  margin-top: calc(var(--spacing) * 8);
+}
+
 .mb-4 {
   margin-bottom: calc(var(--spacing) * 4);
 }
@@ -288,7 +276,13 @@ h6 {
 }
 
 @media screen and (min-width: 720px) {
-  .tablet\:grid-cols-2 {
-    grid-template-columns: repeat(2, 1fr);
+  .tablet\:grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .desktop\:grid-cols-6 {
+    grid-template-columns: repeat(6, 1fr);
   }
 }
