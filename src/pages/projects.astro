@@ -4,23 +4,6 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
 
-//TODO: Next Time:
-//        - Give the card its own component
-//        - Apply card to both current and past projects
-//        - Date logic??????? (Actually, I think it's a bad idea now (overkill for such a small site, and does not solve much))
-//        - See if better styles could be used.
-
-// {
-//   title: '',
-//   urls: [],
-//   startDate: 'yyyy-mm',
-//   endDate: 'yyyy-mm',
-//   desc: '',
-//   img: '',
-//   alt: '',
-//   contributers: []
-// }
-
 const currentProjects = [
   {
     title: 'Run the Undergrad',
@@ -65,20 +48,6 @@ const previousProjects = [
     contributers: ['Alex Dombroski', 'Ellie Talbot', 'Amitai Finlayson'],
   },
 ];
-
-// const currentDate = new Date();
-
-// for (const project of projects) {
-//   const start = project.startDate ? new Date(project.startDate) : null;
-//   const end = project.endDate ? new Date(project.endDate) : null;
-//   const timeframe =
-
-// if (!end || end >= currentDate) {
-//     currentProjects.push(project);
-//   } else {
-//     previousProjects.push(project);
-//   }
-// }
 ---
 
 <SiteLayout title="Projects">
