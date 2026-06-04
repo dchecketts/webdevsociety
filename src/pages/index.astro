@@ -13,11 +13,13 @@ const baseUrl = import.meta.env.BASE_URL;
       />
       <h1 id="motto">Crafting the Web, Empowering Innovation.</h1>
     </div>
-    <h1 class="header">Events</h1>
-    <div id="events">
-      <input id="left-arrow" class="event-arrows" type="button" value="<" />
-      <div class="event-container"></div>
-      <input id="right-arrow" class="event-arrows" type="button" value=">" />
+    <div id="wdd-meeting">
+      <h1 class="meeting-main-text">Society Meeting</h1>
+      <p class="meeting-info">Location: STC 231</p>
+      <p class="meeting-info">Wednesdays at 5:30 PM</p>
+      <p class="meeting-info meeting-desc">
+        Cool web development activities here.
+      </p>
     </div>
     <div id="about-us">
       <img id="about-picture" />
@@ -25,10 +27,7 @@ const baseUrl = import.meta.env.BASE_URL;
         <img id="cool-picture" src={`${baseUrl}/images/home/classroom2.jpg`} />
         <div id="about-us-desc">
           <h1 class="about-us-main-text">About Us</h1>
-          <p class="about-us-main-text">
-            Description about us will go here, bla bla bla...
-          </p>
-          <a href="" class="about-us-btn">Learn More</a>
+          <a href={`${baseUrl}/about`} class="about-us-btn">Learn More</a>
         </div>
       </div>
     </div>
@@ -238,6 +237,33 @@ const baseUrl = import.meta.env.BASE_URL;
     background-color: var(--secondary-color);
   }
 
+  #wdd-meeting {
+    display: grid;
+    gap: 20px;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.8em;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    margin: 20px 20px 0 20px;
+    padding: 10px;
+  }
+
+  .meeting-main-text {
+    padding-bottom: 20px;
+    margin: 0 0 10px 0;
+    border-bottom: solid var(--primary-color) 3px;
+  }
+
+  .meeting-info {
+    margin: 0;
+  }
+
+  .meeting-desc {
+    text-align: center;
+    max-width: 600px;
+  }
+
   @media screen and (min-width: 840px) {
     #cool-cards {
       grid-template-columns: repeat(2, 1fr);
@@ -246,6 +272,10 @@ const baseUrl = import.meta.env.BASE_URL;
     }
     .event-container {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    #wdd-meeting {
+      margin: 20px 40px 0 40px;
     }
   }
 
