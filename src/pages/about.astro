@@ -133,7 +133,6 @@ const baseUrl = import.meta.env.BASE_URL;
     text-align: center;
     font-size: 40px;
     font-weight: 500;
-    margin: 10px 200px;
     padding-bottom: 20px;
     border-bottom: solid var(--primary-color) 3px;
   }
@@ -148,6 +147,7 @@ const baseUrl = import.meta.env.BASE_URL;
     display: flex;
     justify-content: space-around;
     margin: 10% 5%;
+    gap: 20px;
   }
 
   .about-card {
@@ -156,6 +156,10 @@ const baseUrl = import.meta.env.BASE_URL;
     width: 250px;
     color: white;
     border-radius: 10px;
+  }
+
+  @media screen and (max-width: 425px) {
+    
   }
 
   @media screen and (max-width: 768px) {
