@@ -13,7 +13,7 @@ const { member, active = false } = Astro.props;
   <img src={member.avatar_url} alt={member.login} class="w-full" />
   <div class="min-w-0 text-left ml-sm">
     <div class="font-bold text-lg">
-      {member.name || <span class="text-disabled">(Not Provided)</span>}
+      {member.name || member.login}
     </div>
     <div class="github-link-container">
       <Github />
