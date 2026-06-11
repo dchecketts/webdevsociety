@@ -4,12 +4,14 @@ const baseUrl = import.meta.env.BASE_URL;
 
 <header>
   <nav>
-    <img
-      src={`${baseUrl}/images/whitelogo.svg`}
-      alt="Logo for the WDD Society"
-      width="100px"
-      id="nav-logo"
-    />
+    <a href={`${baseUrl}/`}>
+      <img
+        src={`${baseUrl}/images/whitelogo.svg`}
+        alt="Logo for the WDD Society"
+        width="100px"
+        id="nav-logo"
+      />
+    </a>
     <button type="button" id="menu-button">Menu</button>
     <ul class="nav-links">
       <li><a href={`${baseUrl}/`}>Home</a></li>
@@ -24,18 +26,18 @@ const baseUrl = import.meta.env.BASE_URL;
 
 <script>
   let currentUrl = window.location.pathname.substring(
-    window.location.pathname.indexOf("/webdevsociety/") + 1,
+    window.location.pathname.indexOf('/webdevsociety/') + 1,
   );
 
   const activeLink = document.querySelector(`a[href="/${currentUrl}"]`);
-  activeLink?.parentElement?.classList.add("active");
+  activeLink?.parentElement?.classList.add('active');
 
   const menuButton = document.getElementById(
-    "menu-button",
+    'menu-button',
   ) as HTMLButtonElement;
-  menuButton.addEventListener("click", () => {
-    const navLinks = document.querySelector(".nav-links") as HTMLUListElement;
-    navLinks.classList.toggle("open");
+  menuButton.addEventListener('click', () => {
+    const navLinks = document.querySelector('.nav-links') as HTMLUListElement;
+    navLinks.classList.toggle('open');
   });
 </script>
 
