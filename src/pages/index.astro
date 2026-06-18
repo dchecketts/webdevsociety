@@ -1,5 +1,5 @@
 ---
-import SiteLayout from "../layouts/SiteLayout.astro";
+import SiteLayout from '../layouts/SiteLayout.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
 ---
@@ -13,11 +13,13 @@ const baseUrl = import.meta.env.BASE_URL;
       />
       <h1 id="motto">Crafting the Web, Empowering Innovation.</h1>
     </div>
-    <h1 class="header">Events</h1>
-    <div id="events">
-      <input id="left-arrow" class="event-arrows" type="button" value="<" />
-      <div class="event-container"></div>
-      <input id="right-arrow" class="event-arrows" type="button" value=">" />
+    <div id="wdd-meeting">
+      <h1 class="meeting-main-text">Society Meeting</h1>
+      <p class="meeting-info">Location: STC 231</p>
+      <p class="meeting-info">Wednesdays at 5:30 PM</p>
+      <p class="meeting-info meeting-desc">
+        Cool web development activities here.
+      </p>
     </div>
     <div id="about-us">
       <img id="about-picture" />
@@ -25,10 +27,7 @@ const baseUrl = import.meta.env.BASE_URL;
         <img id="cool-picture" src={`${baseUrl}/images/home/classroom2.jpg`} />
         <div id="about-us-desc">
           <h1 class="about-us-main-text">About Us</h1>
-          <p class="about-us-main-text">
-            Description about us will go here, bla bla bla...
-          </p>
-          <a href="" class="about-us-btn">Learn More</a>
+          <a href={`${baseUrl}/about`} class="about-us-btn">Learn More</a>
         </div>
       </div>
     </div>
@@ -47,13 +46,15 @@ const baseUrl = import.meta.env.BASE_URL;
 </SiteLayout>
 
 <script is:inline>
+  /* eslint-disable eqeqeq */
+
   const events = [
     {
-      title: "Society Meeting",
-      date: "3/26/2025",
-      time: "5:30pm",
-      location: "STC 231",
-      description: "Discussing upcoming events and projects",
+      title: 'Society Meeting',
+      date: '3/26/2025',
+      time: '5:30pm',
+      location: 'STC 231',
+      description: 'Discussing upcoming events and projects',
     },
   ];
 
@@ -72,7 +73,7 @@ const baseUrl = import.meta.env.BASE_URL;
       eventSize = 4;
     }
 
-    window.addEventListener("resize", function () {
+    window.addEventListener('resize', function () {
       windowWidth = window.innerWidth;
       if (windowWidth < 840) {
         eventSize = 1;
@@ -85,18 +86,18 @@ const baseUrl = import.meta.env.BASE_URL;
       checkArrowAvailability();
     });
 
-    const eventContainer = document.querySelector(".event-container");
+    const eventContainer = document.querySelector('.event-container');
     let eventIndex = 0;
     const updateEvents = () => {
-      eventContainer.innerHTML = "";
+      eventContainer.innerHTML = '';
 
       if (eventIndex >= 0 && eventIndex + eventSize < events.length) {
         events.slice(eventIndex, eventIndex + eventSize).forEach((event) => {
-          const eventElement = document.createElement("div");
-          eventElement.classList.add("event");
+          const eventElement = document.createElement('div');
+          eventElement.classList.add('event');
           event.id % 2 == 0
-            ? eventElement.classList.add("evenEvent")
-            : eventElement.classList.add("oddEvent");
+            ? eventElement.classList.add('evenEvent')
+            : eventElement.classList.add('oddEvent');
           eventElement.innerHTML = `
                 <h3>${event.title}</h3>
                 <p>Date: ${event.date}</p>
@@ -104,16 +105,16 @@ const baseUrl = import.meta.env.BASE_URL;
                 <p>Location: ${event.location}</p>
                 <p>${event.description}</p>
             `;
-          eventElement.classList.add("card");
+          eventElement.classList.add('card');
           eventContainer.appendChild(eventElement);
         });
       } else if (eventIndex >= 0 && eventIndex + eventSize >= events.length) {
         events.slice(eventIndex, events.length).forEach((event) => {
-          const eventElement = document.createElement("div");
-          eventElement.classList.add("card");
+          const eventElement = document.createElement('div');
+          eventElement.classList.add('card');
           event.id % 2 == 0
-            ? eventElement.classList.add("evenEvent")
-            : eventElement.classList.add("oddEvent");
+            ? eventElement.classList.add('evenEvent')
+            : eventElement.classList.add('oddEvent');
           eventElement.innerHTML = `
                 <h3>${event.title}</h3>
                 <p>Date: ${event.date}</p>
@@ -126,23 +127,23 @@ const baseUrl = import.meta.env.BASE_URL;
       }
     };
 
-    const leftArrow = document.querySelector("#left-arrow");
-    const rightArrow = document.querySelector("#right-arrow");
+    const leftArrow = document.querySelector('#left-arrow');
+    const rightArrow = document.querySelector('#right-arrow');
 
     const checkArrowAvailability = () => {
       if (eventIndex == 0) {
-        leftArrow.classList.add("unavailable");
+        leftArrow.classList.add('unavailable');
       } else {
-        leftArrow.classList.remove("unavailable");
+        leftArrow.classList.remove('unavailable');
       }
       if (eventIndex == events.length - eventSize) {
-        rightArrow.classList.add("unavailable");
+        rightArrow.classList.add('unavailable');
       } else {
-        rightArrow.classList.remove("unavailable");
+        rightArrow.classList.remove('unavailable');
       }
     };
 
-    leftArrow.addEventListener("click", function () {
+    leftArrow.addEventListener('click', function () {
       if (eventIndex != 0) {
         eventIndex--;
       }
@@ -150,7 +151,7 @@ const baseUrl = import.meta.env.BASE_URL;
       checkArrowAvailability();
     });
 
-    rightArrow.addEventListener("click", function () {
+    rightArrow.addEventListener('click', function () {
       if (eventIndex != events.length - eventSize) {
         eventIndex++;
       }
@@ -236,6 +237,33 @@ const baseUrl = import.meta.env.BASE_URL;
     background-color: var(--secondary-color);
   }
 
+  #wdd-meeting {
+    display: grid;
+    gap: 20px;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.8em;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    margin: 20px 20px 0 20px;
+    padding: 10px;
+  }
+
+  .meeting-main-text {
+    padding-bottom: 20px;
+    margin: 0 0 10px 0;
+    border-bottom: solid var(--primary-color) 3px;
+  }
+
+  .meeting-info {
+    margin: 0;
+  }
+
+  .meeting-desc {
+    text-align: center;
+    max-width: 600px;
+  }
+
   @media screen and (min-width: 840px) {
     #cool-cards {
       grid-template-columns: repeat(2, 1fr);
@@ -244,6 +272,10 @@ const baseUrl = import.meta.env.BASE_URL;
     }
     .event-container {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    #wdd-meeting {
+      margin: 20px 40px 0 40px;
     }
   }
 
