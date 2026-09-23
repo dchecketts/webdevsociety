@@ -14,7 +14,7 @@ const { member } = Astro.props;
 
 let link;
 
-if (member.site != '') {
+if (member.site != '' && !member.site.includes('@')) {
   if (/^https?:\/\//i.test(member.site)) {
     link = `${member.site}`;
   } else {

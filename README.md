@@ -17,8 +17,8 @@ The following directory layout is intended to cleanly separate source code to ma
 │   │   ├── navigation/
 │   │   └── projects/
 │   ├── content/
-│   │   ├── events/
-│   │   └── projects.json
+│   │   ├── projects/
+│   │   └── events.json
 │   ├── layouts/
 │   ├── pages/
 │   │   ├── events.astro

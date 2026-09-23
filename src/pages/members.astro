@@ -11,83 +11,57 @@ import * as fs from 'node:fs';
 
 const token = import.meta.env.GITHUB_PAT;
 
-let listOfMemberInformation = [];
-let membersList: string[] = [];
+let listOfMemberInformation;
+
+function loadCachedMembers() {
+  try {
+    return JSON.parse(fs.readFileSync('./src/assets/data/members.json', 'utf-8'));
+  } catch {
+    return [];
+  }
+}
 
 if (!token) {
   console.warn(
     'Missing organization token environment variable. Loading from members.json instead...'
   );
-
-  // If no token, load members.json
-  try {
-    listOfMemberInformation = JSON.parse(
-      fs.readFileSync('./src/assets/data/members.json', 'utf-8')
-    );
-  } catch (error: any) {
-    console.error(`Error importing members.json: ${error.message}`);
-  }
+  listOfMemberInformation = loadCachedMembers();
 } else {
   console.warn('Organization token found. Building members.json...');
 
-  // If there is a token, build members.json
-  const octokit = new Octokit({
-    auth: token,
-  });
-
-  // Get list of members login
   try {
-    const { data } = await octokit.paginate(octokit.rest.orgs.listMembers, {
+    const octokit = new Octokit({ auth: token });
+
+    const data = await octokit.paginate(octokit.rest.orgs.listMembers, {
       org: 'Web-Design-Development-Society',
       per_page: 100,
     });
 
-    membersList = data.map((member) => member.login);
-  } catch (error: any) {
-    console.error(`Error getting list of members: ${error.message}`);
-  }
+    const refreshedMembers = [];
 
-  // Search users for names and avatar_url based on login
-  try {
-    for (const member of membersList) {
-      const { data } = await octokit.rest.users.getByUsername({
-        username: member,
+    for (const member of data) {
+      const user = await octokit.rest.users.getByUsername({
+        username: member.login,
       });
 
-      listOfMemberInformation.push({
-        login: member,
-        name: data.name,
-        avatar_url: data.avatar_url,
-        site: data.blog,
+      refreshedMembers.push({
+        login: member.login,
+        name: user.data.name,
+        avatar_url: user.data.avatar_url,
+        site: user.data.blog,
       });
     }
-  } catch (error: any) {
-    console.error(`Error getting user information: ${error.message}`);
-  }
 
-  // Write members.json file containing each person's login, name, and avatar_url
-  try {
-    fs.writeFileSync(
-      './src/assets/data/members.json',
-      JSON.stringify(listOfMemberInformation),
-      'utf-8',
-      (err: any) => {
-        if (err) {
-          console.error(err);
-        }
-      }
-    );
-  } catch (error: any) {
-    console.error(`Error writing members.json: ${error.message}`);
-  }
+    // Only write once the full refresh has succeeded.
+    const tempPath = './src/assets/data/members.json.tmp';
+    fs.writeFileSync(tempPath, JSON.stringify(refreshedMembers, null, 2), 'utf-8');
+    fs.renameSync(tempPath, './src/assets/data/members.json');
 
-  // Reference the new members.json to populate the page
-  try {
-    listOfMemberInformation = await JSON.parse(
-      fs.readFileSync('./src/assets/data/members.json', 'utf-8')
-    );
+    listOfMemberInformation = refreshedMembers;
   } catch (error: any) {
-    console.error(`Error importing members.json: ${error.message}`);
+    console.error(`Unable to refresh members data: ${error.message}`);
+    console.warn('Keeping the existing cached members list instead of overwriting it.');
+    listOfMemberInformation = loadCachedMembers();
   }
 }
 ---
