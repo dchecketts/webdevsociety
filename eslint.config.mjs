@@ -24,7 +24,7 @@ export default [
       // Custom Rules Here
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'prefer-const': 'error',
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
 
       'astro/no-set-html-directive': 'error',
       'astro/no-unused-css-selector': 'warn',

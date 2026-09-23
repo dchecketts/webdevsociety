@@ -66,7 +66,7 @@ import HeroBanner from '../components/navigation/HeroBanner.astro';
         <!-- Using events.json to populate this section -->
         {
           Schedule.map((event, index) => (
-            <li id="${index + 1}">
+            <li id={String(index + 1)}>
               <Event event={event} id={index + 1} />
             </li>
           ))
@@ -74,7 +74,7 @@ import HeroBanner from '../components/navigation/HeroBanner.astro';
       </ul>
       <script>
         // Gather a list of all events for the semester for styling
-        const listItems = document.querySelectorAll('#upcoming-events li div');
+        const listItems = document.querySelectorAll('#upcoming-events li > div');
 
         // For each event, identify the date and style according to upcoming (Blue & Bold), future (Green), and past (Yellow)
         for (let i = 0; i < listItems.length; i++) {

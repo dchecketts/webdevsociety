@@ -37,7 +37,7 @@ if (!token) {
 
   // Get list of members login
   try {
-    const { data } = await octokit.rest.orgs.listMembers({
+    const { data } = await octokit.paginate(octokit.rest.orgs.listMembers, {
       org: 'Web-Design-Development-Society',
       per_page: 100,
     });
@@ -67,7 +67,7 @@ if (!token) {
 
   // Write members.json file containing each person's login, name, and avatar_url
   try {
-    fs.writeFile(
+    fs.writeFileSync(
       './src/assets/data/members.json',
       JSON.stringify(listOfMemberInformation),
       'utf-8',
@@ -126,7 +126,7 @@ if (!token) {
 
     <!-- Search by github username or member first name or last name -->
     <div id="search" class="flex w-2/3">
-      <label for="search-members" class="hidden"> Search Members: </label>
+      <label for="search-members" class="sr-only"> Search Members: </label>
       <input
         type="text"
         id="search-members"
@@ -138,6 +138,7 @@ if (!token) {
         type="button"
         id="search-button"
         class="cursor-pointer rounded-r-full bg-blue-950 px-3 py-2 text-white hover:bg-gray-800"
+        aria-label="Search members"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

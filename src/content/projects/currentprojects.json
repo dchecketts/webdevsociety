@@ -11,7 +11,7 @@
   },
   {
     "title": "Society Site",
-    "url": "/society-site-refactor",
+    "url": "https://web-design-development-society.github.io/webdevsociety",
     "img": "/src/assets/images/society-site.jpeg",
     "alt": "Screenshot of the home page of this site",
     "desc": "A modular Astro-powered website using GitHub API to list members, as well as events and current and past projects.",

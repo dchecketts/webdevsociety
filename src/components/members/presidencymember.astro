@@ -27,7 +27,7 @@ try {
 
 let link;
 
-if (profileData?.blog != '') {
+if (profileData?.blog) {
   if (profileData?.blog?.includes('https://')) {
     link = `${profileData?.blog}`;
   } else {
