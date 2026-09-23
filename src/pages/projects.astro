@@ -8,7 +8,11 @@ import pastProjects from '../content/projects/pastprojects.json';
 import HeroBanner from '../components/navigation/HeroBanner.astro';
 ---
 
-<BasicLayout title="BYUI WDD Society - Projects">
+<BasicLayout
+  title="BYUI WDD Society - Projects"
+  description="We regularly work on collaborative projects that meet real-world needs and provide a learning environment for students of all levels of experience."
+  bannerImage={heroImage}
+>
   <HeroBanner heroImage={heroImage}>
     <h1 class="text-6xl font-bold">Projects</h1>
     <span class="w-2/3 text-center md:w-1/2">
