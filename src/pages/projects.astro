@@ -2,60 +2,72 @@
 import '../styles/global.css';
 import BasicLayout from '../layouts/sitelayout.astro';
 import heroImage from '../assets/images/projects.jpg';
-import ProjectCard from "../components/projects/projectcard.astro";
-import currentProjects from "../content/projects/currentprojects.json"
-import pastProjects from "../content/projects/pastprojects.json"
+import ProjectCard from '../components/projects/projectcard.astro';
+import currentProjects from '../content/projects/currentprojects.json';
+import pastProjects from '../content/projects/pastprojects.json';
 ---
 
 <BasicLayout title="BYUI WDD Society - Projects">
-    <section
-            id="hero-banner"
-            style={`--hero-bg: url(${heroImage.src})`}
-            class="bg-black bg-[linear-gradient(hsl(0_0%_0%/0.5)),var(--hero-bg)] bg-cover bg-center h-96 w-full flex items-center justify-center"
-    >
-        <div class="flex flex-col gap-3 items-center text-white">
-            <h1 class="font-bold text-6xl">Projects</h1>
-            <span class="text-center w-2/3 md:w-1/2">Some of the projects that members have done work on or are currently working on.</span>
-        </div>
-    </section>
+  <section
+    id="hero-banner"
+    style={`--hero-bg: url(${heroImage.src})`}
+    class="flex h-96 w-full items-center justify-center bg-black bg-[linear-gradient(hsl(0_0%_0%/0.5)),var(--hero-bg)] bg-cover bg-center"
+  >
+    <div class="flex flex-col items-center gap-3 text-white">
+      <h1 class="text-6xl font-bold">Projects</h1>
+      <span class="w-2/3 text-center md:w-1/2">
+        Some of the projects that members have done work on or are currently working on.
+      </span>
+    </div>
+  </section>
 
-    <section id="current-projects" class="flex flex-col items-center py-5">
-        <h2 class="font-bold text-4xl">Current Projects</h2>
-        <ul class="flex flex-col items-center mx-10 md:mx-0 md:w-1/2">
-            <!-- Use currentprojects.json to populate the list of current projects -->
-            {currentProjects.map(
-                (item: {
-                     title: string;
-                     url: string;
-                     img: string;
-                     alt: string;
-                     desc: string;
-                     startDate: string;
-                     endDate: string;
-                     contributors: string[];
-                }) => (
-                    <li><ProjectCard project={item} /></li>
-            ))}
-        </ul>
-    </section>
+  <section id="current-projects" class="flex flex-col items-center py-5">
+    <h2 class="text-4xl font-bold">Current Projects</h2>
+    <ul class="mx-10 flex flex-col items-center md:mx-0 md:w-1/2">
+      <!-- Use currentprojects.json to populate the list of current projects -->
+      {
+        currentProjects.map(
+          (item: {
+            title: string;
+            url: string;
+            img: string;
+            alt: string;
+            desc: string;
+            startDate: string;
+            endDate: string;
+            contributors: string[];
+          }) => (
+            <li>
+              <ProjectCard project={item} />
+            </li>
+          )
+        )
+      }
+    </ul>
+  </section>
 
-    <section id="past-projects" class="flex flex-col items-center py-5">
-        <h2 class="font-bold text-4xl">Past Projects</h2>
-        <ul class="flex flex-col items-center mx-10 md:mx-0 md:w-1/2">
-            <!-- Use pastprojects.json to populate the list of current projects -->
-            {pastProjects.map(
-                (item: {
-                    title: string;
-                    url: string;
-                    img: string;
-                    alt: string;
-                    desc: string;
-                    startDate: string;
-                    endDate: string;
-                    contributors: string[];
-                }) => (
-                        <li><ProjectCard project={item} /></li>
-                ))}
-        </ul>
-    </section>
+  <section id="past-projects" class="flex flex-col items-center py-5">
+    <h2 class="text-4xl font-bold">Past Projects</h2>
+    <ul class="mx-10 flex flex-col items-center md:mx-0 md:w-1/2">
+      <!-- Use pastprojects.json to populate the list of current projects -->
+      {
+        pastProjects.map(
+          (item: {
+            title: string;
+            url: string;
+            img: string;
+            alt: string;
+            desc: string;
+            startDate: string;
+            endDate: string;
+            contributors: string[];
+          }) => (
+            <li>
+              <ProjectCard project={item} />
+            </li>
+          )
+        )
+      }
+    </ul>
+  </section>
 </BasicLayout>

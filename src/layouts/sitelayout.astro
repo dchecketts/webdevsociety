@@ -4,15 +4,15 @@ import Header from '../components/navigation/header.astro';
 import Footer from '../components/navigation/footer.astro';
 
 type Props = {
-    title?: string;
-}
+  title?: string;
+};
 
 const { title }: Props = Astro.props;
 const BASE_URL = import.meta.env.BASE_URL;
 ---
 
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href={`${BASE_URL}/images/favicon-96x96.png`} sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href={`${BASE_URL}/images/favicon.svg`} />
@@ -22,12 +22,12 @@ const BASE_URL = import.meta.env.BASE_URL;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{title ?? 'BYU-I Web Design & Development Society'}</title>
-</head>
-<body class="flex flex-col h-screen bg-neutral-100 dark:bg-black dark:text-neutral-100">
-<Header/>
-<main class="grow">
-    <slot/>
-</main>
-<Footer/>
-</body>
+  </head>
+  <body class="flex h-screen flex-col bg-neutral-100 dark:bg-black dark:text-neutral-100">
+    <Header />
+    <main class="grow">
+      <slot />
+    </main>
+    <Footer />
+  </body>
 </html>

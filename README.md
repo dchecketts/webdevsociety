@@ -33,7 +33,7 @@ The following directory layout is intended to cleanly separate source code to ma
 
 `src/assets` contains all data used and organized into reasonable subdirectories. `data` contains the lists of members and the presidency, as well as variables used throughout the site. `icons` contains SVG elements used on pages. `images` contains image files used throughout the site, specifically the banner images and project images. Further organization may be used when more projects are made.
 
-`src/components/` contains any Astro/React/Vue/Svelte/Preact components, organized by the page that uses them. 
+`src/components/` contains any Astro/React/Vue/Svelte/Preact components, organized by the page that uses them.
 
 `src/content/` contains information used by the events and projects pages to consolidate information used by specific pages, and to separate the data from the code used to display it.
 
@@ -50,7 +50,7 @@ The following directory layout is intended to cleanly separate source code to ma
 All commands are run at the root, using a terminal:
 
 | Command                   | Action                                           |
-| :------------------------ |:-------------------------------------------------|
+| :------------------------ | :----------------------------------------------- |
 | `npm install`             | Install dependencies                             |
 | `npm run dev`             | Starts a local dev server at `localhost:4321`    |
 | `npm run build`           | Build the production site to `./dist/`           |
@@ -60,11 +60,12 @@ All commands are run at the root, using a terminal:
 
 ## Useful Resources
 
-* [Astro Documentation](https://docs.astro.build)
-* [Tailwind CSS Documentation](https://tailwindcss.com/)
+- [Astro Documentation](https://docs.astro.build)
+- [Tailwind CSS Documentation](https://tailwindcss.com/)
 
 ## Future Goals
-* Provide inline documentation throughout pages and components to explain actions.
-* Ensure that variable, component, and functions used are descriptive of the data they contain or what they do.
-* Migrate Tailwind styling to plain CSS now that the majority of the styling is outlined.
-* Outline semester schedule on `/events#semester-schedule` (`src/content/events.json`)
+
+- Provide inline documentation throughout pages and components to explain actions.
+- Ensure that variable, component, and functions used are descriptive of the data they contain or what they do.
+- Migrate Tailwind styling to plain CSS now that the majority of the styling is outlined.
+- Outline semester schedule on `/events#semester-schedule` (`src/content/events.json`)
