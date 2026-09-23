@@ -1,0 +1,40 @@
+---
+type Member = {
+    login: string;
+    name: string | null;
+    avatar_url: string;
+    site: string;
+}
+
+export interface Props {
+    member: Member;
+}
+
+const { member } = Astro.props;
+
+let link;
+
+if (member.site != '') {
+    if (member.site.includes("https://")) {
+        link = `${member.site}`;
+
+    } else {
+        link = `https://${member.site}`
+
+    }
+} else {
+    link = `https://github.com/${member.login}`
+
+}
+---
+
+<a href={link} target="_blank" rel="noopener noreferrer" class="flex bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl gap-3 md:p-5 transition-all duration-300 hover:scale-110 shadow-md hover:shadow-lg hover:my-6">
+    <img src={member.avatar_url} alt={member.name || member.login} class="min-h-24 max-h-35 w-24 object-cover rounded-l-xl md:rounded-full" />
+    <div class="flex flex-col md:flex-row items-center justify-between pb-3 grow">
+        <div class="flex flex-col items-center md:items-start">
+            <h3 class="font-bold text-2xl text-center">{member.name || member.login}</h3>
+            <span class="text-gray-500">@{member.login}</span>
+        </div>
+        <span class="md:bg-blue-950 hover:bg-gray-800 dark:hover:bg-gray-700 md:text-white md:px-3 md:py-2 md:rounded-full min-w-12/50 text-center">{ (member.site != '') ? "View Personal Site" : "View GitHub Profile"}</span>
+    </div>
+</a>

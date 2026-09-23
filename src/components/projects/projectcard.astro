@@ -1,0 +1,61 @@
+---
+import Image from 'astro/components/Image.astro';
+
+type Project = {
+    title: string;
+    url: string;
+    img: string;
+    alt: string;
+    desc: string;
+    startDate: string;
+    endDate: string;
+    contributors: string[];
+};
+
+let timeFrame = ``;
+
+export interface Props {
+    project: Project;
+}
+
+const { project } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/*.{jpeg,jpg,png,gif}');
+
+const imagePath = project.img;
+if (!images[imagePath]) throw new Error(`"${imagePath}" does not exist in glob.`);
+
+if (project.startDate != project.endDate) {
+    timeFrame = `${project.startDate} - ${project.endDate}`;
+} else {
+    timeFrame = `${project.startDate}`;
+}
+
+const contributors = project.contributors.length;
+---
+
+<a href={project.url} target="_blank" rel="noopener noreferrer">
+    <article class="group relative gap-5 my-10 overflow-hidden rounded-xl shadow-md dark:bg-gray-700">
+    <Image src={images[imagePath]()} alt={project.alt} />
+    <div class="md:backdrop-blur-md md:absolute md:top-0 md:left-0 md:h-full md:w-full md:opacity-0 transition duration-300 group-hover:opacity-100">
+        <div class="p-5 flex flex-col gap-5 md:bg-black md:dark:bg-neutral-100 md:text-white md:dark:text-black md:w-1/2 lg:1/3 md:h-full md:justify-center">
+            <div class="flex flex-col items-center">
+                <h3 class="text-3xl text-center">{project.title}</h3>
+                <span class="font-sm italic text-gray-400">{timeFrame}</span>
+            </div>
+            <p class="text-justify w-9/10 mx-auto">{project.desc}</p>
+            {contributors != 0 &&
+                <div class="flex flex-col items-center md:w-9/10 md:mx-auto md:items-start">
+                    <span class="font-bold text-lg md:text-md">Contributors</span>
+                    <ul class="flex flex-col gap-1 items-center md:items-start md:pl-5">
+                        {project.contributors.map((contributor) => (
+                            <li>{contributor}</li>
+                        ))}
+                    </ul>
+                </div>
+            }
+            <span class="mx-auto bg-black text-white rounded-full px-3 py-2 md:hidden">View the project</span>
+        </div>
+        <div class="w-2/3 backdrop-blur-none"></div>
+    </div>
+</article></a>

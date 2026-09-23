@@ -1,0 +1,120 @@
+---
+import '../styles/global.css';
+import BasicLayout from '../layouts/sitelayout.astro';
+import heroImage from '../assets/images/members.jpeg'
+import variables from '../assets/data/variables.json'
+import Event from '../components/events/event.astro'
+import Schedule from '../content/events.json'
+---
+
+<BasicLayout title="BYUI WDD Society - Events">
+    <section
+            id="hero-banner"
+            style={`--hero-bg: url(${heroImage.src})`}
+            class="bg-black bg-[linear-gradient(hsl(0_0%_0%/0.5)),var(--hero-bg)] bg-cover bg-top h-96 w-full flex items-center justify-center"
+    >
+        <div class="flex flex-col gap-3 items-center text-white">
+            <h1 class="font-bold text-6xl">Events</h1>
+            <span class="text-center w-3/4 md:w-2/3">Come participate in events and engage and learn with fellow students.</span>
+        </div>
+    </section>
+
+    <section id="time" class="bg-blue-950 text-white py-3">
+        <div class="w-fit mx-auto flex flex-col md:flex-row items-center gap-3">
+            <span class="font-bold text-center">Join us in the {variables.room}, {variables.day} from {variables.time}</span>
+        </div>
+    </section>
+
+    <!-- Events & Meetings -->
+    <div class="py-10 mx-auto w-8/10 md:w-7/10">
+        <section class="mb-10">
+            <div class="flex flex-col items-center md:items-start">
+                <h2 class="font-bold text-4xl text-center md:text-left" id="activities">Activities & Workshops</h2>
+                <span class="font-light text-gray-500">Fun events & learning experiences</span>
+            </div>
+            <ul id="activity-events" class="pl-5 my-5 flex flex-col gap-2 md:items-center text-center">
+                <!-- Computing Society time & Web Dev Society time -->
+                <li class="font-bold">Computing Society, Wednesday 5:00 PM @ STC 398</li>
+                <li class="font-bold">Web Dev Society, Wednesday 5:30 - 6:30 PM @ STC 231</li>
+                <li class="text-justify md:text-center">Regular workshops intended to help students develop skills and work towards building a portfolio.</li>
+                <li class="text-justify md:text-center">Presentations from fellow students about technologies they find interesting or have recently learned about.</li>
+                <li class="mt-2 font-bold">See the semester schedule for more!</li>
+            </ul>
+        </section>
+
+        <section class="mb-10">
+            <div class="flex flex-col items-center md:items-start">
+                <h2 class="font-bold text-4xl text-center md:text-left" id="semester-schedule"><a href="#semester-schedule" class="hover:underline">Semester Schedule</a></h2>
+                <span class="font-light text-gray-500">Know when & what's going on</span>
+            </div>
+            <ul id="upcoming-events" class="md:w-9/10 mx-auto my-5">
+                <!-- Upcoming events  -->
+
+                <!-- Using events.json to populate this section -->
+                {Schedule.map((event, index) => (
+                    <li id=`${index+1}`>
+                        <Event event={event} id={index + 1} />
+                    </li>
+                ))}
+            </ul>
+            <script>
+                // Gather a list of all events for the semester for styling
+                const listItems = document.querySelectorAll("#upcoming-events li div")
+
+                // For each event, identify the date and style according to upcoming (Blue & Bold), future (Green), and past (Yellow)
+                for (let i: number = 0; i < listItems.length; i++) {
+                    const div = listItems[i]
+
+                    // Identify the event's date
+                    const date = div.querySelector("[data-date]")?.getAttribute("data-date")
+                    if (date) {
+                        const today = new Date()
+                        const eventDate = new Date(date)
+                        const futureDate = new Date(today);
+                        const pastDate = new Date(today);
+                        futureDate.setDate(today.getDate() + 6);
+                        pastDate.setDate(today.getDate() - 1);
+
+                        // Future Event
+                        if (eventDate > today) {
+                            div.classList.add("border-green-600")
+
+                        }
+
+                        // Past Event
+                        else if (eventDate < today) {
+                            div.classList.add("border-yellow-400")
+
+                        }
+
+                        // If the event is within six days from today or is today (Resulting in a week's worth of upcoming events)
+                        if (eventDate < futureDate && eventDate > pastDate) {
+                            // Remove styling related to either past or future
+                            div.classList.remove("border-yellow-400")
+                            div.classList.remove("border-green-600")
+
+                            // Style for upcoming events (Today or in a week from today)
+                            div.classList.add("border-blue-600")
+                            div.classList.add("font-bold")
+
+                        }
+                    }
+                }
+            </script>
+        </section>
+
+        <!--<section class="mb-10">-->
+        <!--    <div>-->
+        <!--        <h2 class="font-bold text-4xl" id="past-activities">Past Events</h2>-->
+        <!--        <span class="font-light text-gray-500">Things we've done</span>-->
+        <!--    </div>-->
+        <!--    <ul id="past-events" class="pl-5 my-5">-->
+        <!--        &lt;!&ndash; Past events &ndash;&gt;-->
+        <!--        <li>Halloween Sites</li>-->
+        <!--        <li>Colab with the UX society</li>-->
+        <!--        <li>Portfolio Development</li>-->
+        <!--        <li>Vibe Code Competition</li>-->
+        <!--    </ul>-->
+        <!--</section>-->
+    </div>
+</BasicLayout>
