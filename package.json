@@ -1,5 +1,5 @@
 {
-  "name": "society-site-refactor",
+  "name": "webdevsociety",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -18,6 +18,6 @@
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@types/node": "^26.1.1"
+    "@types/node": "^26.6.2"
   }
 }
