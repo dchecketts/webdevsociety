@@ -5,21 +5,16 @@ import heroImage from '../assets/images/members.jpeg';
 import variables from '../assets/data/variables.json';
 import Event from '../components/events/event.astro';
 import Schedule from '../content/events.json';
+import HeroBanner from '../components/navigation/HeroBanner.astro';
 ---
 
 <BasicLayout title="BYUI WDD Society - Events">
-  <section
-    id="hero-banner"
-    style={`--hero-bg: url(${heroImage.src})`}
-    class="flex h-96 w-full items-center justify-center bg-black bg-[linear-gradient(hsl(0_0%_0%/0.5)),var(--hero-bg)] bg-cover bg-top"
-  >
-    <div class="flex flex-col items-center gap-3 text-white">
-      <h1 class="text-6xl font-bold">Events</h1>
-      <span class="w-3/4 text-center md:w-2/3">
-        Come participate in events and engage and learn with fellow students.
-      </span>
-    </div>
-  </section>
+  <HeroBanner heroImage={heroImage} imagePosition="bg-top">
+    <h1 class="text-6xl font-bold">Events</h1>
+    <span class="w-3/4 text-center md:w-2/3">
+      Come participate in events and engage and learn with fellow students.
+    </span>
+  </HeroBanner>
 
   <section id="time" class="bg-blue-950 py-3 text-white">
     <div class="mx-auto flex w-fit flex-col items-center gap-3 md:flex-row">

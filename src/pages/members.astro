@@ -6,6 +6,7 @@ import PresidencyMember from '../components/members/presidencymember.astro';
 import presidency from '../assets/data/presidency.json';
 import { Octokit } from 'octokit';
 import MemberCard from '../components/members/membercard.astro';
+import HeroBanner from '../components/navigation/HeroBanner.astro';
 import * as fs from 'node:fs';
 
 const token = import.meta.env.GITHUB_PAT;
@@ -92,18 +93,12 @@ if (!token) {
 ---
 
 <BasicLayout title="BYUI WDD Society - Members">
-  <section
-    id="hero-banner"
-    style={`--hero-bg: url(${heroImage.src})`}
-    class="flex h-96 w-full items-center justify-center bg-black bg-[linear-gradient(hsl(0_0%_0%/0.5)),var(--hero-bg)] bg-cover bg-center"
-  >
-    <div class="flex flex-col items-center gap-3 text-white">
-      <h1 class="text-6xl font-bold">Members</h1>
-      <span class="w-3/4 text-center md:w-2/3">
-        Meet the members of the BYU-Idaho Web Design & Development Society.
-      </span>
-    </div>
-  </section>
+  <HeroBanner heroImage={heroImage}>
+    <h1 class="text-6xl font-bold">Members</h1>
+    <span class="w-2/3 text-center md:w-1/2">
+      Meet the members of the BYU-Idaho Web Design & Development Society.
+    </span>
+  </HeroBanner>
 
   <section id="presidency" class="flex flex-col items-center gap-3 py-5 md:gap-5">
     <h2 class="text-4xl font-bold">Presidency</h2>

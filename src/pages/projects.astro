@@ -5,21 +5,16 @@ import heroImage from '../assets/images/projects.jpg';
 import ProjectCard from '../components/projects/projectcard.astro';
 import currentProjects from '../content/projects/currentprojects.json';
 import pastProjects from '../content/projects/pastprojects.json';
+import HeroBanner from '../components/navigation/HeroBanner.astro';
 ---
 
 <BasicLayout title="BYUI WDD Society - Projects">
-  <section
-    id="hero-banner"
-    style={`--hero-bg: url(${heroImage.src})`}
-    class="flex h-96 w-full items-center justify-center bg-black bg-[linear-gradient(hsl(0_0%_0%/0.5)),var(--hero-bg)] bg-cover bg-center"
-  >
-    <div class="flex flex-col items-center gap-3 text-white">
-      <h1 class="text-6xl font-bold">Projects</h1>
-      <span class="w-2/3 text-center md:w-1/2">
-        Some of the projects that members have done work on or are currently working on.
-      </span>
-    </div>
-  </section>
+  <HeroBanner heroImage={heroImage}>
+    <h1 class="text-6xl font-bold">Projects</h1>
+    <span class="w-2/3 text-center md:w-1/2">
+      Some of the projects that members have done work on or are currently working on.
+    </span>
+  </HeroBanner>
 
   <section id="current-projects" class="flex flex-col items-center py-5">
     <h2 class="text-4xl font-bold">Current Projects</h2>
